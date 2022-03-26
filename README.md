@@ -10,7 +10,7 @@ https://twowaysix.github.io/code-on-canvas-001/
 ```
 npm install
 ```
-Compile from Typescript to Javascript
+Compile from Typescript to Javascript and bundle it
 ```
 npx webpack
 ```

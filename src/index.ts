@@ -1,48 +1,28 @@
-class Planet {
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    mass: number;
+import Planet from "./planet"
 
-    constructor(
-            x: number = 0, 
-            y: number = 0, 
-            vx: number = 0, 
-            vy: number = 0, 
-            mass: number = 1
-    ) {
-        this.x = x;
-        this.y = y;
-        this.vx = vx;
-        this.vy = vy;
-        this.mass = mass;
-    }
-
-    move(dt: number) {
-        this.x += this.vx * dt;
-        this.y += this.vy * dt;
-    }
-}
-
-const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+// User constants
 const WIDTH: number = window.innerWidth;
 const HEIGHT: number = window.innerHeight;
 const DT: number = 1;
 const NPLANETS: number = 10000;
 const SIZE: number = WIDTH / 700;
 
-const planets: Array<Planet> = [];
-var gray: number = 0;
-
+// Canvas
+const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
+// Initializing
+const planets: Array<Planet> = [];
+var gray: number = 0;
+
+// Increases the color of the planet to be drawn by 1
 function advanceColor(): string {
     gray = gray > 255 ? 0 : (gray + 1);
     return "rgba(" + gray.toString() + "," + gray.toString() + "," + gray.toString() + ",0.5)";
 }
 
+// Draws the frame to the canvas
 function draw() {
     var ctx = canvas.getContext("2d");
     if (!ctx) { return; }
@@ -64,6 +44,7 @@ function draw() {
     window.requestAnimationFrame(draw);
 }
 
+// Function to initialize the simulation
 function init() {
     for (let i = 0; i < NPLANETS; i++) {
         planets.push(
@@ -79,6 +60,5 @@ function init() {
 
     window.requestAnimationFrame(draw);
 }
-
 init();
 

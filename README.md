@@ -12,6 +12,6 @@ npm install
 ```
 Compile from Typescript to Javascript
 ```
-./node_modules/.bin/tsc
+npx webpack
 ```
 Open the index.html in a web browser.

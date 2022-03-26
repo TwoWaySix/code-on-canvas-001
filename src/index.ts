@@ -1,37 +1,54 @@
-"use strict";
 class Planet {
-    constructor(x = 0, y = 0, vx = 0, vy = 0, mass = 1) {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    mass: number;
+
+    constructor(
+            x: number = 0, 
+            y: number = 0, 
+            vx: number = 0, 
+            vy: number = 0, 
+            mass: number = 1
+    ) {
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
         this.mass = mass;
     }
-    move(dt) {
+
+    move(dt: number) {
         this.x += this.vx * dt;
         this.y += this.vy * dt;
     }
 }
-const canvas = document.getElementById("canvas");
-const WIDTH = window.innerWidth;
-const HEIGHT = window.innerHeight;
-const DT = 1;
-const NPLANETS = 10000;
-const SIZE = WIDTH / 700;
-const planets = [];
-var gray = 0;
+
+const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+const WIDTH: number = window.innerWidth;
+const HEIGHT: number = window.innerHeight;
+const DT: number = 1;
+const NPLANETS: number = 10000;
+const SIZE: number = WIDTH / 700;
+
+const planets: Array<Planet> = [];
+var gray: number = 0;
+
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
-function advanceColor() {
+
+function advanceColor(): string {
     gray = gray > 255 ? 0 : (gray + 1);
     return "rgba(" + gray.toString() + "," + gray.toString() + "," + gray.toString() + ",0.5)";
 }
+
 function draw() {
     var ctx = canvas.getContext("2d");
-    if (!ctx) {
-        return;
-    }
+    if (!ctx) { return; }
+
     ctx.fillStyle = advanceColor();
+    
     for (let i = 0; i < planets.length; i++) {
         let p = planets[i];
         p.move(DT);
@@ -43,13 +60,25 @@ function draw() {
         }
         ctx.fillRect(p.x, p.y, SIZE, SIZE);
     }
+
     window.requestAnimationFrame(draw);
 }
+
 function init() {
     for (let i = 0; i < NPLANETS; i++) {
-        planets.push(new Planet(Math.random() * WIDTH, Math.random() * HEIGHT, Math.random() * 10 - 5, Math.random() * 10 - 5, 1.0));
+        planets.push(
+            new Planet(
+                Math.random() * WIDTH,
+                Math.random() * HEIGHT,
+                Math.random() * 10 - 5,
+                Math.random() * 10 - 5,
+                1.0
+            )
+        );
     }
+
     window.requestAnimationFrame(draw);
 }
+
 init();
-//# sourceMappingURL=index.js.map
+
